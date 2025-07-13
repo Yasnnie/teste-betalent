@@ -21,6 +21,12 @@
         outline: none;
         flex: 1;
 
+        &::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+            appearance: none;
+            display: none;
+        }
+
 
         &::placeholder{
             color: $gray-20;

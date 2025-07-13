@@ -1,11 +1,21 @@
 import styles from "./Search.module.scss"
 
-export function Search(){
-    return <label className={styles["c-search"]}>
-        <input placeholder="Pesquisar" type="search" />
+interface Props {
+  value: string
+  onChange: (value: string) => void
+}
 
-        <button>
-            <img src="/assets/search.svg" alt="Buscar" />
-        </button>
+export function Search({ value, onChange }: Props) {
+    return <label className={styles["c-search"]}>
+        <input
+            placeholder="Pesquisar"
+            type="search"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+        />
+
+      <button >
+        <img src="/assets/search.svg" alt="Buscar" />
+      </button>
     </label>
 }
