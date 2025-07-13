@@ -5,7 +5,7 @@ export function Search(){
         <input placeholder="Pesquisar" type="search" />
 
         <button>
-            aqui
+            <img src="/assets/search.svg" alt="Buscar" />
         </button>
     </label>
 }
