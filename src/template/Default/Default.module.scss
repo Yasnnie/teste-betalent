@@ -1,0 +1,35 @@
+@import '../../styles/variables';
+
+.container{
+    width: 100%;
+    min-height: 100dvh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem ;
+    background: #F0F0F0;
+
+
+    main{
+        width: 100%;
+
+        h2{
+            font-family: "Helvetica Neue";
+            font-size: 1.5rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            color: $black;
+        }
+    }
+
+
+    &__row{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+}
