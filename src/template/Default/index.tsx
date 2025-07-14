@@ -1,39 +1,37 @@
-import styles from "./Default.module.scss"
-import { Header } from "../../components/Header"
-import { Search } from "../../components/Search"
-import { Table } from "../../components/Table"
 import { useEffect, useMemo, useState } from "react"
-import { Employe } from "../../types/Employees"
+import styles from "./Default.module.scss"
+import { useMediaQuery } from 'react-responsive'
+
+import { useDebouncedValue } from "../../hooks/useDebouncedValue"
+import { Employee } from "../../types/Employees"
+
 import { getEmployees } from "../../services/EmployeesService"
 
+import { Header } from "../../components/Header"
+import { Search } from "../../components/Search"
+import { TableMobile } from "../../components/TableMobile"
+import { TableDesktop } from "../../components/TableDesktop"
+
 export function Default() {
-  const [employees, setEmployees] = useState<Employe[]>([])
-  const [filtered, setFiltered] = useState<Employe[]>([])
+  const isMobile = useMediaQuery({ maxWidth: 750 })
+  const [employees, setEmployees] = useState<Employee[]>([])
   const [search, setSearch] = useState("")
+  const debouncedSearch = useDebouncedValue(search, 400)
 
   useEffect(() => {
-    getEmployees().then(({ data }) => {
-      setEmployees(data)
-      setFiltered(data)
-    })
+    getEmployees().then(({ data }) => setEmployees(data))
   }, [])
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      const query = search.toLowerCase().trim()
-      if (!query) return setFiltered(employees)
+  const filtered = useMemo(() => {
+    const query = debouncedSearch.toLowerCase().trim()
+    if (!query) return employees
 
-      const result = employees.filter(({ name, job, phone }) =>
-        [name, job, phone].some((field) =>
-          field.toLowerCase().includes(query)
-        )
+    return employees.filter(({ name, job, phone }) =>
+      [name, job, phone].some((field) =>
+        field.toLowerCase().includes(query)
       )
-
-      setFiltered(result)
-    }, 400)
-
-    return () => clearTimeout(timeout)
-  }, [search, employees])
+    )
+  }, [debouncedSearch, employees])
 
   return (
     <>
@@ -46,7 +44,11 @@ export function Default() {
             <Search value={search} onChange={setSearch} />
           </div>
 
-          <Table data={filtered} />
+           {isMobile ? (
+            <TableMobile data={filtered} />
+          ) : (
+            <TableDesktop data={filtered} />
+          )}
         </main>
       </div>
     </>

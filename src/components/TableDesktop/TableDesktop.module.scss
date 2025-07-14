@@ -1,0 +1,67 @@
+@import '../../styles/variables';
+
+@mixin row-base($padding-x: 2rem) {
+  height: 3.125rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 $padding-x;
+  box-sizing: border-box;
+}
+
+@mixin table-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+
+
+.table {
+  border-spacing: 0;
+  width: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: $white;
+
+  tr td, tr th{
+        &:first-child {
+          max-width: 124px;
+        }
+
+        &:last-child {
+          max-width: 160px;
+        }
+  }
+
+  thead {
+    background: $primary-blue;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+    tr {
+      @include row-base;
+
+      th {
+        @include table-cell;
+        color: $white;
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      @include row-base;
+      border-bottom: 1px solid $gray-10;
+
+      td {
+        @include table-cell;
+        color: $black;
+      }
+    }
+  }
+}
+
