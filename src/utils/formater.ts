@@ -11,5 +11,5 @@ export function formatPhone(phone: string): string {
   const match = phone.match(/^(\d{2})(\d{2})(\d{5})(\d{4})$/)
   if (!match) return phone
   const [, country, ddd, first, last] = match
-  return `+${country} ${ddd} ${first}-${last}`
+  return `+${country} (${ddd}) ${first}-${last}`
 }

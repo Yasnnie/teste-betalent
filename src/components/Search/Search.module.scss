@@ -50,3 +50,10 @@
         transition: border-color 0.2s;
     }
 }
+
+
+@media (max-width: 520px) {
+    .c-search{
+        width: 100%;
+    }
+}
